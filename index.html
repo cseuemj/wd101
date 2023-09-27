@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--script src="https:\\cdn.tailwindcss.com"></script-->
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        input#name:invalid:focus{
+            border: 1px solid red;
+        }
+        input#email:invalid:focus{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <!-- relative flex min-h-screen flex-col justify-center overflow-hidden py-6 bg-gray-50 -->
+    <div class="main_div">
+        <div>
+            <div class="reg_form">
+                <h1>Registration Form</h1>
+                <div>
+                    <div>
+                        <form id="user_form">
+                            <label for="name">Name</label>
+                            <input required type="text" id="name" name="name" class="input_field"><br>
+                         
+                            <label for="email">Email</label>
+                            <input required type="email" id="email" name="email" class="input_field"><br>
+                         
+                            <label for="password">Password</label>
+                            <input required type="password" id="password" name="password" class="input_field"><br>
+                         
+                            <label for="dob">Date of Birth</label>
+                            <input required type="date" id="dob" name="dob" class="input_field">
+                            <label id="age_error"></label>
+                            <br>
+                         
+                            <input type="checkbox" id="acceptTerms" name="acceptTerms">
+                            <label for="acceptTerms">Accept Terms & Conditions</label><br>
+                         
+                            <button type="submit" id="submit" class="submit_button" onclick="return validate_age()">Submit</button>
+                         </form>
+                    </div>
+                </div>
+            </div>
+            <div id="user_entries"></div>
+        </div>
+    </div>
+    <script>
+        const email = document.getElementById('email');
+        email.addEventListener('input', () => validate(email));
+
+        const submit = document.getElementById('submit');
+        email.addEventListener('click', () => validate(email));
+
+        function validate(element){
+            if(element.validate.typpeMismatch){
+                element.setCustomValidity("The email is not correct");
+                element.reportValidity();
+            }else{
+                element.setCustomValidity('');
+            }
+        }
+
+        function validate_age(){
+            let cur_age = new Date().getFullYear() - new Date(dob.value).getFullYear();
+            if (cur_age >= 18 && cur_age <= 55) {
+                dob.setCustomValidity('');
+                return true;
+            } else {
+                dob.setCustomValidity("Age must be between 18 and 55!");
+                dob.reportValidity();
+                return false;
+            }
+        }
+    </script>
+    <script src="./index.js"></script>
+</body>
+</html>
